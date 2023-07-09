@@ -33,6 +33,7 @@ export default function ApiKeys() {
       <Table
         loading={apiKeysQ.isLoading}
         bordered
+        pagination={false}
         dataSource={apiKeysQ.data}
         columns={[
           {

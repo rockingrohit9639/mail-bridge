@@ -31,7 +31,7 @@ export default function AppShell({ children }: AppShellProps) {
           <div className="space-y-4 p-4">
             <div className="flex items-center gap-2 justify-center">
               <div className="w-8 h-8 flex items-center justify-center bg-primary/20 text-primary border-primary border rounded shadow">
-                M
+                @
               </div>
               {collapsed ? null : <div className="text-2xl font-bold text-primary">Mail Bridge</div>}
             </div>

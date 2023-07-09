@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { ApiKey } from '@prisma/client'
+import { v4 as uuidv4 } from 'uuid'
 import { PrismaService } from '~/prisma/prisma.service'
 import { SanitizedUser } from '~/user/user.types'
 import { MAX_API_KEYS_ALLOWED } from './api-key.constants'
@@ -27,8 +28,7 @@ export class ApiKeyService {
   }
 
   private generateKey(): string {
-    // creating a base-36 string that contains 30 chars in a-z,0-9
-    return [...Array(30)].map(() => ((Math.random() * 36) | 0).toString(36)).join('')
+    return uuidv4()
   }
 
   getUserApiKeys(user: SanitizedUser): Promise<ApiKey[]> {

@@ -190,6 +190,9 @@ importers:
       types-joi:
         specifier: ^2.1.0
         version: 2.1.0
+      uuid:
+        specifier: ^9.0.0
+        version: 9.0.0
     devDependencies:
       '@nestjs/cli':
         specifier: ^10.0.0
