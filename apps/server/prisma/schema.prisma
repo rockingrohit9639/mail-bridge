@@ -15,7 +15,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  apiKeys ApiKey[]
+  apiKeys   ApiKey[]
+  templates Template[]
 }
 
 model ApiKey {
@@ -23,6 +24,21 @@ model ApiKey {
   name  String
   value String @unique
   usage Int    @default(0) // 👉 to keep track of how much a user has used an API key
+
+  createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  createdById String @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Template {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  subject    String // 👉 will be used as subject for email
+  content    String
+  templateId String  @unique
+  isDefault  Boolean @default(false)
 
   createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade)
   createdById String @db.ObjectId

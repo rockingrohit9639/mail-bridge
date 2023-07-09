@@ -3,8 +3,8 @@ import { ApiKey } from '@prisma/client'
 import { v4 as uuidv4 } from 'uuid'
 import { PrismaService } from '~/prisma/prisma.service'
 import { SanitizedUser } from '~/user/user.types'
-import { MAX_API_KEYS_ALLOWED } from './api-key.constants'
 import { CreateApiKeyDto } from './api-key.dto'
+import { MAX_API_KEYS_ALLOWED } from '~/config/constants'
 
 @Injectable()
 export class ApiKeyService {
