@@ -2,13 +2,15 @@ import { Editor } from '@tinymce/tinymce-react'
 import { ENV } from '~/utils/env'
 
 type RichTextEditorProps = {
+  initialValue?: string
   onChange?: (value: string) => void
 }
 
-export default function RichTextEditor({ onChange }: RichTextEditorProps) {
+export default function RichTextEditor({ initialValue, onChange }: RichTextEditorProps) {
   return (
     <Editor
       apiKey={ENV.VITE_TINY_MCE_KEY}
+      initialValue={initialValue}
       init={{
         height: 500,
         menubar: false,

@@ -1,3 +1,4 @@
+import { SaveOutlined } from '@ant-design/icons'
 import { Button, Form, Input, message } from 'antd'
 import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
@@ -63,6 +64,7 @@ export default function CreateTemplate() {
             htmlType="submit"
             disabled={createTemplateMutation.isLoading}
             loading={createTemplateMutation.isLoading}
+            icon={<SaveOutlined />}
           >
             Create Template
           </Button>

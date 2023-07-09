@@ -1,4 +1,4 @@
-import { PlusCircleOutlined } from '@ant-design/icons'
+import { EditOutlined, PlusCircleOutlined } from '@ant-design/icons'
 import { Button, Result, Spin, Table } from 'antd'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { useQuery } from 'react-query'
@@ -62,6 +62,17 @@ export default function Templates() {
           {
             dataIndex: 'id',
             title: 'Actions',
+            render: (id) => (
+              <div className="flex items-center gap-2">
+                <Button
+                  icon={<EditOutlined />}
+                  type="link"
+                  onClick={() => {
+                    navigate(`/template/${id}`)
+                  }}
+                />
+              </div>
+            ),
           },
         ]}
       />
