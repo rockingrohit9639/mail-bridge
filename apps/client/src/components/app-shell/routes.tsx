@@ -1,4 +1,5 @@
 import { AiOutlineDashboard, AiOutlineInfoCircle, AiOutlineKey } from 'react-icons/ai'
+import { HiOutlineTemplate } from 'react-icons/hi'
 
 export type AppshellRoute = {
   id: string
@@ -29,5 +30,12 @@ export const ROUTES: AppshellRoute[] = [
     icon: <AiOutlineKey />,
     path: '/api-keys',
     patterns: ['/api-keys'],
+  },
+  {
+    id: 'templates',
+    name: 'Templates',
+    icon: <HiOutlineTemplate />,
+    path: '/templates',
+    patterns: ['/templates'],
   },
 ]

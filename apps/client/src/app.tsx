@@ -8,6 +8,7 @@ const Signup = lazy(() => import('~/pages/signup'))
 const Login = lazy(() => import('~/pages/login'))
 const Dashboard = lazy(() => import('~/pages/dashboard'))
 const ApiKeys = lazy(() => import('~/pages/api-keys'))
+const Templates = lazy(() => import('~/pages/templates'))
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
       >
         <Route element={<Dashboard />} path="/" />
         <Route element={<ApiKeys />} path="/api-keys" />
+        <Route element={<Templates />} path="/templates" />
       </Route>
 
       <Route element={<Signup />} path="signup" />
