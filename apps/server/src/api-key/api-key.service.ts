@@ -3,12 +3,13 @@ import { ApiKey } from '@prisma/client'
 import { PrismaService } from '~/prisma/prisma.service'
 import { SanitizedUser } from '~/user/user.types'
 import { MAX_API_KEYS_ALLOWED } from './api-key.constants'
+import { CreateApiKeyDto } from './api-key.dto'
 
 @Injectable()
 export class ApiKeyService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async createApiKey(user: SanitizedUser): Promise<ApiKey> {
+  async createApiKey(dto: CreateApiKeyDto, user: SanitizedUser): Promise<ApiKey> {
     const userApiKeys = await this.prismaService.apiKey.count({ where: { createdById: user.id } })
     if (userApiKeys >= MAX_API_KEYS_ALLOWED) {
       throw new BadRequestException(
@@ -18,6 +19,7 @@ export class ApiKeyService {
 
     return this.prismaService.apiKey.create({
       data: {
+        name: dto.name,
         value: this.generateKey(),
         createdBy: { connect: { id: user.id } },
       },
