@@ -1,5 +1,5 @@
 {
-  "name": "full-stack-starter-template",
+  "name": "mail-bridge",
   "version": "0.0.1",
   "workspaces": [
     "packages/*",
