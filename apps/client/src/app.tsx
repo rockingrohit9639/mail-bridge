@@ -7,6 +7,7 @@ import AppShell from './components/app-shell'
 const Signup = lazy(() => import('~/pages/signup'))
 const Login = lazy(() => import('~/pages/login'))
 const Dashboard = lazy(() => import('~/pages/dashboard'))
+const ApiKeys = lazy(() => import('~/pages/api-keys'))
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         }
       >
         <Route element={<Dashboard />} path="/" />
+        <Route element={<ApiKeys />} path="/api-keys" />
       </Route>
 
       <Route element={<Signup />} path="signup" />

@@ -1,4 +1,4 @@
-import { AiOutlineDashboard, AiOutlineInfoCircle } from 'react-icons/ai'
+import { AiOutlineDashboard, AiOutlineInfoCircle, AiOutlineKey } from 'react-icons/ai'
 
 export type AppshellRoute = {
   id: string
@@ -22,5 +22,12 @@ export const ROUTES: AppshellRoute[] = [
     icon: <AiOutlineInfoCircle />,
     path: '/about-us',
     patterns: ['/about-us'],
+  },
+  {
+    id: 'api-keys',
+    name: 'API Keys',
+    icon: <AiOutlineKey />,
+    path: '/api-keys',
+    patterns: ['/api-keys'],
   },
 ]

@@ -14,7 +14,7 @@ const SIDEBAR_WIDTH = 250
 const SIDEBAR_COLLAPSED_WIDTH = 100
 
 export default function AppShell({ children }: AppShellProps) {
-  const [collapsed, setIsCollapsed] = useState(true)
+  const [collapsed, setIsCollapsed] = useState(false)
   const navigate = useNavigate()
   const { logout, user } = useAuthContext()
 
@@ -25,7 +25,7 @@ export default function AppShell({ children }: AppShellProps) {
         style={{ width: collapsed ? AppShell.SIDEBAR_COLLAPSED_WIDTH : AppShell.SIDEBAR_WIDTH }}
       >
         <div
-          className="fixed top-0 left-0 bottom-0 bg-white shadow overflow-y-auto flex justify-between flex-col transition-all delay-0 ease-in-out"
+          className="fixed top-0 left-0 bottom-0 bg-white shadow overflow-y-auto flex justify-between flex-col transition-all delay-0 ease-in-out overflow-hidden"
           style={{ width: collapsed ? AppShell.SIDEBAR_COLLAPSED_WIDTH : AppShell.SIDEBAR_WIDTH }}
         >
           <div className="space-y-4 p-4">
