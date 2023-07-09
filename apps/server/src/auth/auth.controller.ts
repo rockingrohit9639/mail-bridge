@@ -20,7 +20,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtGuard)
-  @Get()
+  @Get('me')
   getUser(@GetUser() user: SanitizedUser) {
     return user
   }
