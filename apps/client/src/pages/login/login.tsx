@@ -1,6 +1,6 @@
 import { UserAddOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd'
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { useAuthContext } from '~/hooks/use-auth'
 
 export default function Login() {
@@ -53,9 +53,16 @@ export default function Login() {
             disabled={loginMutation.isLoading}
             loading={loginMutation.isLoading}
           >
-            Signup
+            Login
           </Button>
         </Form>
+
+        <div className="flex item-center justify-center gap-2">
+          Did not have an account{' '}
+          <Link className="text-primary" to="/signup">
+            Signup
+          </Link>
+        </div>
       </div>
     </div>
   )

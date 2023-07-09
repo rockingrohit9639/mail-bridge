@@ -1,7 +1,7 @@
 import { UserAddOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd'
 import { useMutation, useQueryClient } from 'react-query'
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuthContext } from '~/hooks/use-auth'
 import useError from '~/hooks/use-error'
 import { signup } from '~/queries/auth'
@@ -83,6 +83,13 @@ export default function Signup() {
             Signup
           </Button>
         </Form>
+
+        <div className="flex item-center justify-center gap-2">
+          Already have an account{' '}
+          <Link className="text-primary" to="/login">
+            Login
+          </Link>
+        </div>
       </div>
     </div>
   )

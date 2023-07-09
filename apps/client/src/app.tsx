@@ -10,36 +10,38 @@ const Dashboard = lazy(() => import('~/pages/dashboard'))
 const ApiKeys = lazy(() => import('~/pages/api-keys'))
 const Templates = lazy(() => import('~/pages/templates'))
 const CreateTemplate = lazy(() => import('~/pages/create-template'))
+const UpdateTemplate = lazy(() => import('~/pages/update-template'))
 
 function App() {
   return (
-    <Routes>
-      <Route
-        element={
-          <Suspense
-            fallback={
-              <div className="flex h-screen w-full items-center justify-center">
-                <Spin>Login please wait.</Spin>
-              </div>
-            }
-          >
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-full items-center justify-center">
+          <Spin>Login please wait.</Spin>
+        </div>
+      }
+    >
+      <Routes>
+        <Route
+          element={
             <AuthProtection>
               <AppShell>
                 <Outlet />
               </AppShell>
             </AuthProtection>
-          </Suspense>
-        }
-      >
-        <Route element={<Dashboard />} path="/" />
-        <Route element={<ApiKeys />} path="/api-keys" />
-        <Route element={<Templates />} path="/templates" />
-        <Route element={<CreateTemplate />} path="/create-template" />
-      </Route>
+          }
+        >
+          <Route element={<Dashboard />} path="/" />
+          <Route element={<ApiKeys />} path="/api-keys" />
+          <Route element={<Templates />} path="/templates" />
+          <Route element={<CreateTemplate />} path="/create-template" />
+          <Route element={<UpdateTemplate />} path="/template/:id" />
+        </Route>
 
-      <Route element={<Signup />} path="signup" />
-      <Route element={<Login />} path="login" />
-    </Routes>
+        <Route element={<Signup />} path="signup" />
+        <Route element={<Login />} path="login" />
+      </Routes>
+    </Suspense>
   )
 }
 
