@@ -1,7 +1,8 @@
 import { UserAddOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd'
 import { useMutation, useQueryClient } from 'react-query'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { useAuthContext } from '~/hooks/use-auth'
 import useError from '~/hooks/use-error'
 import { signup } from '~/queries/auth'
 import { ENV } from '~/utils/env'
@@ -10,6 +11,9 @@ export default function Signup() {
   const { handleError } = useError()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const { user } = useAuthContext()
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirectTo') ?? '/'
 
   const signupMutation = useMutation(signup, {
     onError: handleError,
@@ -23,6 +27,10 @@ export default function Signup() {
       navigate('/', { replace: true })
     },
   })
+
+  if (user) {
+    return <Navigate to={{ pathname: redirectTo }} replace />
+  }
 
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col">

@@ -1,9 +1,17 @@
 import { UserAddOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd'
+import { Navigate, useSearchParams } from 'react-router-dom'
 import { useAuthContext } from '~/hooks/use-auth'
 
 export default function Login() {
-  const { loginMutation } = useAuthContext()
+  const { loginMutation, user } = useAuthContext()
+
+  const [searchParams] = useSearchParams()
+  const redirectTo = searchParams.get('redirectTo') ?? '/'
+
+  if (user) {
+    return <Navigate to={{ pathname: redirectTo }} replace />
+  }
 
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col">
