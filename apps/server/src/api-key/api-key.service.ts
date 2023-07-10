@@ -1,14 +1,15 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { ApiKey } from '@prisma/client'
 import { v4 as uuidv4 } from 'uuid'
 import { PrismaService } from '~/prisma/prisma.service'
 import { SanitizedUser } from '~/user/user.types'
 import { CreateApiKeyDto } from './api-key.dto'
-import { MAX_API_KEYS_ALLOWED } from '~/config/constants'
+import { MAX_API_KEYS_ALLOWED, MAX_API_USAGE_ALLOWED } from '~/config/constants'
+import { UserService } from '~/user/user.service'
 
 @Injectable()
 export class ApiKeyService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService, private readonly userService: UserService) {}
 
   async createApiKey(dto: CreateApiKeyDto, user: SanitizedUser): Promise<ApiKey> {
     const userApiKeys = await this.prismaService.apiKey.count({ where: { createdById: user.id } })
@@ -33,5 +34,40 @@ export class ApiKeyService {
 
   getUserApiKeys(user: SanitizedUser): Promise<ApiKey[]> {
     return this.prismaService.apiKey.findMany({ where: { createdById: user.id } })
+  }
+
+  async findOneByValue(value: string): Promise<ApiKey> {
+    const apiKey = await this.prismaService.apiKey.findFirst({ where: { value } })
+    if (!apiKey) {
+      throw new NotFoundException('API Key not found')
+    }
+    return apiKey
+  }
+
+  async findUserById(id: string): Promise<SanitizedUser> {
+    return this.userService.findOneById(id)
+  }
+
+  async findOneById(id: string): Promise<ApiKey> {
+    const apiKey = await this.prismaService.apiKey.findFirst({ where: { id } })
+    if (!apiKey) {
+      throw new NotFoundException('API Key not found')
+    }
+    return apiKey
+  }
+
+  async increaseUsageCount(id: string): Promise<ApiKey> {
+    const apiKey = await this.findOneById(id)
+    return this.prismaService.apiKey.update({
+      where: { id: apiKey.id },
+      data: {
+        usage: { increment: 1 },
+      },
+    })
+  }
+
+  async isUsageRemaining(id: string): Promise<boolean> {
+    const apiKey = await this.findOneById(id)
+    return apiKey.usage < MAX_API_USAGE_ALLOWED
   }
 }

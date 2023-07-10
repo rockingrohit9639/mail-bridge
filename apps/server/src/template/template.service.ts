@@ -78,4 +78,12 @@ export class TemplateService {
 
     return updatedTemplate
   }
+
+  async findDefaultForUser(userId: string): Promise<Template> {
+    const template = await this.prismaService.template.findFirst({ where: { isDefault: true, createdById: userId } })
+    if (!template) {
+      throw new NotFoundException('You have not set any template as default yet!')
+    }
+    return template
+  }
 }

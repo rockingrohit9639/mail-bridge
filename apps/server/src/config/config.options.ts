@@ -6,6 +6,8 @@ const validationSchema = joi.object({
   DATABASE_URL: joi.string().required(),
   JWT_SECRET: joi.string().required(),
   JWT_EXPIRATION: joi.string().required(),
+  EMAIL: joi.string().email().required(),
+  EMAIL_PASSWORD: joi.string().required(),
 })
 
 export type EnvironmentVars = joi.InterfaceFrom<typeof validationSchema>

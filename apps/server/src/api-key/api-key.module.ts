@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { ApiKeyController } from './api-key.controller'
 import { ApiKeyService } from './api-key.service'
+import { UserModule } from '~/user/user.module'
 
+@Global()
 @Module({
-  imports: [],
+  imports: [UserModule],
   controllers: [ApiKeyController],
   providers: [ApiKeyService],
   exports: [ApiKeyService],

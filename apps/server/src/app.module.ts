@@ -6,9 +6,18 @@ import { PrismaModule } from './prisma/prisma.module'
 import { AuthModule } from './auth/auth.module'
 import { ApiKeyModule } from './api-key/api-key.module'
 import { TemplateModule } from './template/template.module'
+import { MailerModule } from './mailer/mailer.module'
 
 @Module({
-  imports: [ConfigModule.forRoot(configOptions), PrismaModule, AuthModule, UserModule, ApiKeyModule, TemplateModule],
+  imports: [
+    ConfigModule.forRoot(configOptions),
+    PrismaModule,
+    AuthModule,
+    UserModule,
+    ApiKeyModule,
+    TemplateModule,
+    MailerModule,
+  ],
   providers: [],
 })
 export class AppModule {}
