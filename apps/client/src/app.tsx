@@ -11,6 +11,7 @@ const ApiKeys = lazy(() => import('~/pages/api-keys'))
 const Templates = lazy(() => import('~/pages/templates'))
 const CreateTemplate = lazy(() => import('~/pages/create-template'))
 const UpdateTemplate = lazy(() => import('~/pages/update-template'))
+const AboutUs = lazy(() => import('~/pages/about-us'))
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route element={<Templates />} path="/templates" />
           <Route element={<CreateTemplate />} path="/create-template" />
           <Route element={<UpdateTemplate />} path="/template/:id" />
+          <Route element={<AboutUs />} path="/about-us" />
         </Route>
 
         <Route element={<Signup />} path="signup" />

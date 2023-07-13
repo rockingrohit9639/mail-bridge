@@ -15,7 +15,7 @@ export default function Login() {
 
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col">
-      <div className="bg-white p-8 rounded space-y-4 w-[30rem]">
+      <div className="bg-white p-8 rounded space-y-4 w-[30rem] shadow">
         <div className="text-2xl font-bold">
           Signup to <span className="text-primary">Mail Bridge.</span>
         </div>
