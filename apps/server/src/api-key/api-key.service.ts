@@ -70,4 +70,21 @@ export class ApiKeyService {
     const apiKey = await this.findOneById(id)
     return apiKey.usage < MAX_API_USAGE_ALLOWED
   }
+
+  getTotalApisCreated(user: SanitizedUser): Promise<number> {
+    return this.prismaService.apiKey.count({ where: { createdById: user.id } })
+  }
+
+  async getRemainingApiUsage(user: SanitizedUser): Promise<number> {
+    const totalApis = await this.getTotalApisCreated(user)
+    const {
+      _sum: { usage },
+    } = await this.prismaService.apiKey.aggregate({
+      where: { createdById: user.id },
+      _sum: { usage: true },
+    })
+
+    const totalUsageAllowed = totalApis * MAX_API_USAGE_ALLOWED
+    return totalUsageAllowed - usage
+  }
 }

@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module'
 import { ApiKeyModule } from './api-key/api-key.module'
 import { TemplateModule } from './template/template.module'
 import { MailerModule } from './mailer/mailer.module'
+import { DashboardModule } from './dashboard/dashboard.module'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { MailerModule } from './mailer/mailer.module'
     ApiKeyModule,
     TemplateModule,
     MailerModule,
+    DashboardModule,
   ],
   providers: [],
 })

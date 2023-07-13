@@ -26,5 +26,6 @@ import { TemplateModule } from '~/template/template.module'
       inject: [ConfigService],
     },
   ],
+  exports: [MailerService],
 })
 export class MailerModule {}

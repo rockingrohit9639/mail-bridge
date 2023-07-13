@@ -86,4 +86,8 @@ export class TemplateService {
     }
     return template
   }
+
+  getTotalTemplatesCreated(user: SanitizedUser): Promise<number> {
+    return this.prismaService.template.count({ where: { createdById: user.id } })
+  }
 }
