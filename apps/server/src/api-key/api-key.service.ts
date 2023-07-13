@@ -75,7 +75,7 @@ export class ApiKeyService {
     return this.prismaService.apiKey.count({ where: { createdById: user.id } })
   }
 
-  async getRemainingApiUsage(user: SanitizedUser): Promise<number> {
+  async getApiUsage(user: SanitizedUser): Promise<{ total: number; remaining: number }> {
     const totalApis = await this.getTotalApisCreated(user)
     const {
       _sum: { usage },
@@ -85,6 +85,9 @@ export class ApiKeyService {
     })
 
     const totalUsageAllowed = totalApis * MAX_API_USAGE_ALLOWED
-    return totalUsageAllowed - usage
+    return {
+      total: totalUsageAllowed,
+      remaining: totalUsageAllowed - usage,
+    }
   }
 }

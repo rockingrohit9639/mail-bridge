@@ -15,13 +15,13 @@ export class DashboardService {
 
   async getDashboardStats(user: SanitizedUser): Promise<DashboardStats> {
     const totalApisCreated = await this.apiKeyService.getTotalApisCreated(user)
-    const remainingApiUsage = await this.apiKeyService.getRemainingApiUsage(user)
+    const apiUsage = await this.apiKeyService.getApiUsage(user)
     const totalEmailSent = await this.mailService.getTotalEmailSent(user)
     const totalTemplatesCreated = await this.templateService.getTotalTemplatesCreated(user)
 
     return {
       totalApisCreated,
-      remainingApiUsage,
+      apiUsage,
       totalEmailSent,
       totalTemplatesCreated,
     }
