@@ -8,6 +8,7 @@ import { SanitizedUser } from '~/user/user.types'
 import { TemplateService } from '~/template/template.service'
 import { generateRegisteredUserMailContent, mailBridgeSignature } from './mailer.utils'
 import { ApiKeyService } from '~/api-key/api-key.service'
+import { PrismaService } from '~/prisma/prisma.service'
 
 @Injectable()
 export class MailerService {
@@ -15,6 +16,7 @@ export class MailerService {
     @Inject('MAIL_TRANSPORTER') private readonly transporter: Transporter<SMTPTransport.SentMessageInfo>,
     private readonly templateService: TemplateService,
     private readonly apiKeyService: ApiKeyService,
+    private readonly prismaService: PrismaService,
   ) {}
 
   async sendMail(dto: SendMailDto, user: SanitizedUser, apiKey: ApiKey) {
@@ -41,6 +43,15 @@ export class MailerService {
           throw new InternalServerErrorException(error)
         }
         await this.apiKeyService.increaseUsageCount(apiKey.id)
+        await this.prismaService.email.create({
+          data: {
+            content: html,
+            data: dto.data,
+            from: user.email,
+            to,
+            createdBy: { connect: { id: user.id } },
+          },
+        })
       },
     )
 
@@ -55,14 +66,21 @@ export class MailerService {
         html: contentWithSignature,
       },
       (error) => {
-        throw new InternalServerErrorException(error)
+        if (error) {
+          throw new InternalServerErrorException(error)
+        }
+        return { status: 'SUCCESS' }
       },
     )
 
-    return { status: 'SUCCESS' }
+    return { status: 'FAILED' }
   }
 
   private _addMailBridgeSignature(html: string): string {
     return html + mailBridgeSignature
+  }
+
+  getTotalEmailSent(user: SanitizedUser): Promise<number> {
+    return this.prismaService.email.count({ where: { createdById: user.id } })
   }
 }

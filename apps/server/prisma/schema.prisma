@@ -49,13 +49,13 @@ model Template {
 }
 
 model Email {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   from        String // 👉 sender of mail
   to          String // 👉 receiver of mail
   data        Json // 👉 data sent by user
   content     String
-  createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade)
-  createdById String @db.ObjectId
-  createdAt   String
-  updatedAt   String
+  createdBy   User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  createdById String   @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
