@@ -8,7 +8,7 @@ export type Template = {
   templateId: string
   isDefault: boolean
   createdBy: User
-  createdById: number
+  createdById: string
   createdAt: string
   updatedAt: string
 }

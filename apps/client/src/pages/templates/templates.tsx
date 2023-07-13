@@ -3,12 +3,16 @@ import { Button, Result, Spin, Table } from 'antd'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import DeleteTemplateModal from '~/components/delete-template-modal'
 import Page from '~/components/page'
+import { useUser } from '~/hooks/use-user'
 import { fetchTemplates } from '~/queries/template'
 import { getErrorMessage } from '~/utils/error'
 
 export default function Templates() {
   const navigate = useNavigate()
+  const { user } = useUser()
+
   const templates = useQuery(['templates'], fetchTemplates)
 
   if (templates.isLoading) {
@@ -62,17 +66,19 @@ export default function Templates() {
           {
             dataIndex: 'id',
             title: 'Actions',
-            render: (id) => (
-              <div className="flex items-center gap-2">
-                <Button
-                  icon={<EditOutlined />}
-                  type="link"
-                  onClick={() => {
-                    navigate(`/template/${id}`)
-                  }}
-                />
-              </div>
-            ),
+            render: (id, record) =>
+              record.createdById === user.id ? (
+                <div className="flex items-center gap-2">
+                  <Button
+                    icon={<EditOutlined />}
+                    type="link"
+                    onClick={() => {
+                      navigate(`/template/${id}`)
+                    }}
+                  />
+                  <DeleteTemplateModal templateId={id} />
+                </div>
+              ) : null,
           },
         ]}
       />

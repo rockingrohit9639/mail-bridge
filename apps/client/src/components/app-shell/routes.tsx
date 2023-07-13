@@ -18,13 +18,6 @@ export const ROUTES: AppshellRoute[] = [
     patterns: ['/'],
   },
   {
-    id: 'about-us',
-    name: 'About Us',
-    icon: <AiOutlineInfoCircle />,
-    path: '/about-us',
-    patterns: ['/about-us'],
-  },
-  {
     id: 'api-keys',
     name: 'API Keys',
     icon: <AiOutlineKey />,
@@ -37,5 +30,12 @@ export const ROUTES: AppshellRoute[] = [
     icon: <HiOutlineTemplate />,
     path: '/templates',
     patterns: ['/templates'],
+  },
+  {
+    id: 'about-us',
+    name: 'About Us',
+    icon: <AiOutlineInfoCircle />,
+    path: '/about-us',
+    patterns: ['/about-us'],
   },
 ]

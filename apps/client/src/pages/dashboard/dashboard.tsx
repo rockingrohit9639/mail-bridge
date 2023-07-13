@@ -15,25 +15,25 @@ export default function Dashboard() {
         <StatCard
           title="Total APIs Created"
           value={stats?.totalApisCreated!}
-          icon={<AiOutlineKey className="w-6 h-6 text-blue-500" />}
+          icon={<AiOutlineKey className="w-5 h-5 text-blue-500" />}
           isLoading={isLoading}
         />
         <StatCard
           title="Total Email Sent"
           value={stats?.totalEmailSent!}
-          icon={<AiOutlineMail className="w-6 h-6 text-red-500" />}
+          icon={<AiOutlineMail className="w-5 h-5 text-red-500" />}
           isLoading={isLoading}
         />
         <StatCard
           title="API Usage"
           value={`${stats?.apiUsage.remaining} / ${stats?.apiUsage.total}`}
-          icon={<AiOutlineBarChart className="w-6 h-6 text-green-500" />}
+          icon={<AiOutlineBarChart className="w-5 h-5 text-green-500" />}
           isLoading={isLoading}
         />
         <StatCard
           title="Total Templates Created"
           value={stats?.totalTemplatesCreated!}
-          icon={<AiOutlineTable className="w-6 h-6 text-purple-500" />}
+          icon={<AiOutlineTable className="w-5 h-5 text-purple-500" />}
           isLoading={isLoading}
         />
       </div>
