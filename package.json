@@ -9,8 +9,7 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "eslint --fix --no-error-on-unmatched-pattern --ignore-path .gitignore --ext ts,tsx,js,jsx .",
-    "format": "prettier --write --no-error-on-unmatched-pattern --ignore-path .gitignore . --ext ts,tsx,js,jsx,json,md",
-    "postinstall": "patch-package"
+    "format": "prettier --write --no-error-on-unmatched-pattern --ignore-path .gitignore . --ext ts,tsx,js,jsx,json,md"
   },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",
