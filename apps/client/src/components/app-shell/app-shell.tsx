@@ -1,7 +1,7 @@
 import { Avatar, Divider, Dropdown, Tooltip } from 'antd'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { cloneElement, useState } from 'react'
-import { AiOutlineLeft, AiOutlineLogout, AiOutlineRight, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineLeft, AiOutlineLogout, AiOutlineRight } from 'react-icons/ai'
 import clsx from 'clsx'
 import { ROUTES } from './routes'
 import { useAuthContext } from '~/hooks/use-auth'
@@ -16,7 +16,6 @@ const SIDEBAR_COLLAPSED_WIDTH = 100
 
 export default function AppShell({ children }: AppShellProps) {
   const [collapsed, setIsCollapsed] = useState(true)
-  const navigate = useNavigate()
   const { logout, user } = useAuthContext()
 
   return (
@@ -77,14 +76,6 @@ export default function AppShell({ children }: AppShellProps) {
                 menu={{
                   items: [
                     {
-                      key: 'profile',
-                      label: 'Profile',
-                      icon: <AiOutlineUser />,
-                      onClick: () => {
-                        navigate(`/profile/${user?.id}`)
-                      },
-                    },
-                    {
                       key: 'logout',
                       label: 'Logout',
                       icon: <AiOutlineLogout />,
@@ -99,7 +90,7 @@ export default function AppShell({ children }: AppShellProps) {
                     collapsed && 'justify-center',
                   )}
                 >
-                  <Avatar>{user?.name[0]}</Avatar>
+                  <Avatar src={user?.profilePicture}>{user?.name[0]}</Avatar>
                   {!collapsed ? <div className="text-lg">{user?.name}</div> : null}
                 </div>
               </Dropdown>

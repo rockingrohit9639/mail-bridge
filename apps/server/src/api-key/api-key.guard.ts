@@ -24,6 +24,10 @@ export class ApiKeyGuard implements CanActivate {
       throw new UnauthorizedException('Invalid API Key!')
     }
 
+    if (!user.isGoogleVerified) {
+      throw new UnauthorizedException('User is not verified with google!')
+    }
+
     request.apiKey = apiKey
     request.user = user
 
