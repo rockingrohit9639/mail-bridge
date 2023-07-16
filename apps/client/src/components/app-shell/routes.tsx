@@ -14,8 +14,8 @@ export const ROUTES: AppshellRoute[] = [
     id: 'dashboard',
     name: 'Dashboard',
     icon: <AiOutlineDashboard />,
-    path: '/',
-    patterns: ['/'],
+    path: '/dashboard',
+    patterns: ['/dashboard'],
   },
   {
     id: 'api-keys',

@@ -1,5 +1,5 @@
 import { Avatar, Divider, Dropdown, Tooltip } from 'antd'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { cloneElement, useState } from 'react'
 import { AiOutlineLeft, AiOutlineLogout, AiOutlineRight, AiOutlineUser } from 'react-icons/ai'
 import clsx from 'clsx'
@@ -14,7 +14,7 @@ const SIDEBAR_WIDTH = 250
 const SIDEBAR_COLLAPSED_WIDTH = 100
 
 export default function AppShell({ children }: AppShellProps) {
-  const [collapsed, setIsCollapsed] = useState(false)
+  const [collapsed, setIsCollapsed] = useState(true)
   const navigate = useNavigate()
   const { logout, user } = useAuthContext()
 
@@ -23,6 +23,12 @@ export default function AppShell({ children }: AppShellProps) {
       <div
         className={collapsed ? 'col-span-1' : 'col-span-2'}
         style={{ width: collapsed ? AppShell.SIDEBAR_COLLAPSED_WIDTH : AppShell.SIDEBAR_WIDTH }}
+        onMouseOver={() => {
+          setIsCollapsed(false)
+        }}
+        onMouseLeave={() => {
+          setIsCollapsed(true)
+        }}
       >
         <div
           className="fixed top-0 left-0 bottom-0 bg-white shadow overflow-y-auto flex justify-between flex-col transition-all delay-0 ease-in-out overflow-hidden"
@@ -30,10 +36,17 @@ export default function AppShell({ children }: AppShellProps) {
         >
           <div className="space-y-4 p-4">
             <div className="flex items-center gap-2 justify-center">
-              <div className="w-8 h-8 flex items-center justify-center bg-primary/20 text-primary border-primary border rounded shadow">
+              <Link
+                to="/"
+                className="w-8 h-8 flex items-center justify-center bg-primary/20 text-primary border-primary border rounded shadow"
+              >
                 @
-              </div>
-              {collapsed ? null : <div className="text-2xl font-bold text-primary">Mail Bridge</div>}
+              </Link>
+              {collapsed ? null : (
+                <Link to="/" className="text-2xl font-bold text-primary">
+                  Mail Bridge
+                </Link>
+              )}
             </div>
             <Divider />
             <ul className="space-y-2">

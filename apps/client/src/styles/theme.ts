@@ -9,10 +9,10 @@ export const ANTD_THEME: ThemeConfig = {
     fontSize: 16,
     fontFamily: ['Inter', ...defaultTheme.fontFamily.sans].join(', '),
 
-    colorPrimary: '#398BB8',
-    colorText: colors.gray['700'],
+    colorPrimary: '#6D3EF4',
+    colorText: 'black',
 
-    colorBorder: '#398BB8',
+    colorBorder: '#6D3EF4',
 
     colorError: colors.red['500'],
     colorWarning: colors.yellow['600'],

@@ -13,5 +13,5 @@ export default function AuthProtection({ children }: AuthProtectionProps) {
     return children
   }
 
-  return <Navigate to={{ pathname: '/login', search: `redirectTo=${location.pathname}` }} />
+  return <Navigate to={{ pathname: '/', search: `redirectTo=${location.pathname}` }} />
 }

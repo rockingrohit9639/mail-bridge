@@ -12,6 +12,7 @@ const Templates = lazy(() => import('~/pages/templates'))
 const CreateTemplate = lazy(() => import('~/pages/create-template'))
 const UpdateTemplate = lazy(() => import('~/pages/update-template'))
 const AboutUs = lazy(() => import('~/pages/about-us'))
+const Home = lazy(() => import('~/pages/home'))
 
 function App() {
   return (
@@ -32,16 +33,17 @@ function App() {
             </AuthProtection>
           }
         >
-          <Route element={<Dashboard />} path="/" />
+          <Route element={<Dashboard />} path="/dashboard" />
           <Route element={<ApiKeys />} path="/api-keys" />
           <Route element={<Templates />} path="/templates" />
           <Route element={<CreateTemplate />} path="/create-template" />
           <Route element={<UpdateTemplate />} path="/template/:id" />
-          <Route element={<AboutUs />} path="/about-us" />
         </Route>
 
+        <Route element={<Home />} path="/" />
         <Route element={<Signup />} path="signup" />
         <Route element={<Login />} path="login" />
+        <Route element={<AboutUs />} path="/about-us" />
       </Routes>
     </Suspense>
   )
