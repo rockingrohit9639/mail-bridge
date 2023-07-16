@@ -5,6 +5,7 @@ import { AiOutlineLeft, AiOutlineLogout, AiOutlineRight, AiOutlineUser } from 'r
 import clsx from 'clsx'
 import { ROUTES } from './routes'
 import { useAuthContext } from '~/hooks/use-auth'
+import LinkWithGoogle from '../link-with-google'
 
 type AppShellProps = {
   children: React.ReactElement
@@ -23,12 +24,6 @@ export default function AppShell({ children }: AppShellProps) {
       <div
         className={collapsed ? 'col-span-1' : 'col-span-2'}
         style={{ width: collapsed ? AppShell.SIDEBAR_COLLAPSED_WIDTH : AppShell.SIDEBAR_WIDTH }}
-        onMouseOver={() => {
-          setIsCollapsed(false)
-        }}
-        onMouseLeave={() => {
-          setIsCollapsed(true)
-        }}
       >
         <div
           className="fixed top-0 left-0 bottom-0 bg-white shadow overflow-y-auto flex justify-between flex-col transition-all delay-0 ease-in-out overflow-hidden"
@@ -73,6 +68,9 @@ export default function AppShell({ children }: AppShellProps) {
 
           <div className="space-y-2">
             <div className="p-4">
+              <div className="flex items-center justify-center mb-2">
+                <LinkWithGoogle type="primary" />
+              </div>
               <Dropdown
                 placement="top"
                 trigger={['click']}

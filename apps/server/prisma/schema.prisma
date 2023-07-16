@@ -15,6 +15,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  isGoogleVerified Boolean @default(false)
+  googleId         String?
+  profilePicture   String?
+
   apiKeys   ApiKey[]
   templates Template[]
   emails    Email[]

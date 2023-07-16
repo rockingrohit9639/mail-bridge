@@ -8,6 +8,8 @@ const validationSchema = joi.object({
   JWT_EXPIRATION: joi.string().required(),
   EMAIL: joi.string().email().required(),
   EMAIL_PASSWORD: joi.string().required(),
+  GOOGLE_CLIENT_ID: joi.string().required(),
+  GOOGLE_CLIENT_SECRET: joi.string().required(),
 })
 
 export type EnvironmentVars = joi.InterfaceFrom<typeof validationSchema>

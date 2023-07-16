@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { AuthService } from './auth.service'
-import { LoginDto, SignupDto } from './auth.dto'
+import { LinkWithGoogleDto, LoginDto, SignupDto } from './auth.dto'
 import { SanitizedUser } from '~/user/user.types'
 import { JwtGuard } from './jwt/jwt.guard'
 import { GetUser } from './user.decorator'
@@ -23,5 +23,11 @@ export class AuthController {
   @Get('me')
   getUser(@GetUser() user: SanitizedUser) {
     return user
+  }
+
+  @UseGuards(JwtGuard)
+  @Post('link-with-google')
+  linkWithGoogle(@Body() dto: LinkWithGoogleDto, @GetUser() user: SanitizedUser): Promise<SanitizedUser> {
+    return this.authService.linkWithGoogle(dto, user)
   }
 }

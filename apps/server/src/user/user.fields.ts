@@ -6,4 +6,7 @@ export const USER_SELECT_FIELDS = {
   email: true,
   createdAt: true,
   updatedAt: true,
+  googleId: true,
+  isGoogleVerified: true,
+  profilePicture: true,
 } satisfies Prisma.UserSelect

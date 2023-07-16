@@ -16,3 +16,8 @@ export async function fetchLoggedInUser() {
   const { data } = await apiClient.get<User>('/auth/me')
   return data
 }
+
+export async function linkWithGoogle(dto: { access_token: string }) {
+  const { data } = await apiClient.post<User>('/auth/link-with-google', dto)
+  return data
+}

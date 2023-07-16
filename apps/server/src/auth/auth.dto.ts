@@ -20,3 +20,8 @@ export class LoginDto {
   @IsString()
   password: string
 }
+
+export class LinkWithGoogleDto {
+  @IsString()
+  access_token: string
+}

@@ -38,36 +38,39 @@ export default function Home() {
       </Page>
       {/* Hero Section End */}
 
-      <div className="h-[450px] bg-gray-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-10 gap-4">
-        <div className="bg-white p-8 flex items-center flex-col text-center space-y-6 hover:ring-2 hover:ring-primary rounded-lg cursor-pointer">
-          <img src="/images/bar-chart.svg" alt="bar-chart.svg" className="w-24" />
-          <div className="text-xl font-bold text-primary">API Route Integration</div>
-          <div className="text-gray-500">
-            Send emails directly from your frontend without a backend using integrated API routes.
+      <div className="bg-gray-100 p-10">
+        <div className="text-center text-2xl mb-4 font-bold">Features</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="bg-white p-8 flex items-center flex-col text-center space-y-6 hover:ring-2 hover:ring-primary rounded-lg cursor-pointer">
+            <img src="/images/bar-chart.svg" alt="bar-chart.svg" className="w-24" />
+            <div className="text-xl font-bold text-primary">API Route Integration</div>
+            <div className="text-gray-500">
+              Send emails directly from your frontend without a backend using integrated API routes.
+            </div>
           </div>
-        </div>
-        <div className="bg-white p-8 flex items-center flex-col justify-center text-center space-y-6 hover:ring-2 hover:ring-primary rounded-lg cursor-pointer">
-          <img src="/images/bar-chart.svg" alt="bar-chart.svg" className="w-24" />
-          <div className="text-xl font-bold text-primary">Effortless Email Sending</div>
-          <div className="text-gray-500">
-            Send personalized emails directly from your frontend without a dedicated backend. Simplify communication and
-            connect with customers effortlessly.
+          <div className="bg-white p-8 flex items-center flex-col justify-center text-center space-y-6 hover:ring-2 hover:ring-primary rounded-lg cursor-pointer">
+            <img src="/images/bar-chart.svg" alt="bar-chart.svg" className="w-24" />
+            <div className="text-xl font-bold text-primary">Effortless Email Sending</div>
+            <div className="text-gray-500">
+              Send personalized emails directly from your frontend without a dedicated backend. Simplify communication
+              and connect with customers effortlessly.
+            </div>
           </div>
-        </div>
-        <div className="bg-white p-8 flex items-center flex-col justify-center text-center space-y-6 hover:ring-2 hover:ring-primary rounded-lg cursor-pointer">
-          <img src="/images/bar-chart.svg" alt="bar-chart.svg" className="w-24" />
-          <div className="text-xl font-bold text-primary">Convenient Email Scheduling</div>
-          <div className="text-gray-500">
-            Automate email campaigns with ease. Schedule delivery dates and times to reach customers at the perfect
-            moment, maximizing impact.
+          <div className="bg-white p-8 flex items-center flex-col justify-center text-center space-y-6 hover:ring-2 hover:ring-primary rounded-lg cursor-pointer">
+            <img src="/images/bar-chart.svg" alt="bar-chart.svg" className="w-24" />
+            <div className="text-xl font-bold text-primary">Convenient Email Scheduling</div>
+            <div className="text-gray-500">
+              Automate email campaigns with ease. Schedule delivery dates and times to reach customers at the perfect
+              moment, maximizing impact.
+            </div>
           </div>
-        </div>
-        <div className="bg-white p-8 flex items-center flex-col justify-center text-center space-y-6 hover:ring-2 hover:ring-primary rounded-lg cursor-pointer">
-          <img src="/images/bar-chart.svg" alt="bar-chart.svg" className="w-24" />
-          <div className="text-xl font-bold text-primary">Intuitive User Interface</div>
-          <div className="text-gray-500">
-            Enjoy a user-friendly interface for seamless email sending. Focus on crafting engaging messages and
-            enhancing customer relationships.
+          <div className="bg-white p-8 flex items-center flex-col justify-center text-center space-y-6 hover:ring-2 hover:ring-primary rounded-lg cursor-pointer">
+            <img src="/images/bar-chart.svg" alt="bar-chart.svg" className="w-24" />
+            <div className="text-xl font-bold text-primary">Intuitive User Interface</div>
+            <div className="text-gray-500">
+              Enjoy a user-friendly interface for seamless email sending. Focus on crafting engaging messages and
+              enhancing customer relationships.
+            </div>
           </div>
         </div>
       </div>

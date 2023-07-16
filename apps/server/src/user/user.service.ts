@@ -27,4 +27,16 @@ export class UserService {
   async findOneByEmail(email: string): Promise<User> {
     return this.prismaService.user.findFirst({ where: { email } })
   }
+
+  async findOneByGoogleId(googleId: string): Promise<User> {
+    return this.prismaService.user.findFirst({ where: { googleId } })
+  }
+
+  addGoogleSubInUser(userId: string, googleId: string, profilePicture: string): Promise<SanitizedUser> {
+    return this.prismaService.user.update({
+      where: { id: userId },
+      data: { googleId, profilePicture, isGoogleVerified: true },
+      select: USER_SELECT_FIELDS,
+    })
+  }
 }

@@ -4,4 +4,7 @@ export type User = {
   email: string
   createdAt: string
   updatedAt: string
+  isGoogleVerified: boolean
+  profilePicture?: string
+  googleId: string
 }

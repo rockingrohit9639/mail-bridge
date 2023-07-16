@@ -24,7 +24,7 @@ export default function Signup() {
       // setting the user in state
       queryClient.setQueryData(['logged-in'], user)
 
-      navigate('/', { replace: true })
+      navigate('/dashboard', { replace: true })
     },
   })
 
