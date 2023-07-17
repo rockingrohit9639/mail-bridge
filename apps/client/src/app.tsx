@@ -13,6 +13,7 @@ const CreateTemplate = lazy(() => import('~/pages/create-template'))
 const UpdateTemplate = lazy(() => import('~/pages/update-template'))
 const AboutUs = lazy(() => import('~/pages/about-us'))
 const Home = lazy(() => import('~/pages/home'))
+const Docs = lazy(() => import('~/pages/docs'))
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         </Route>
 
         <Route element={<Home />} path="/" />
+        <Route element={<Docs />} path="/docs" />
         <Route element={<Signup />} path="signup" />
         <Route element={<Login />} path="login" />
         <Route element={<AboutUs />} path="/about-us" />

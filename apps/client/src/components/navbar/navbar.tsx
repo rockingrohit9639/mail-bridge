@@ -21,7 +21,9 @@ export default function Navbar({ className, style }: NavbarProps) {
           <div className="flex items-center justify-center w-8 select-none h-8 rounded text-primary border border-primary">
             @
           </div>
-          <div className="text-primary font-bold text-2xl">Mail Bridge</div>
+          <Link to="/" className="text-primary font-bold text-2xl">
+            Mail Bridge
+          </Link>
         </div>
         <div className="flex items-center uppercase divide-x-2 gap-4">
           {user ? (
@@ -37,6 +39,10 @@ export default function Navbar({ className, style }: NavbarProps) {
               </Link>
             </>
           ) : null}
+
+          <Link to="/docs" className="px-4 transition-all delay-75 hover:text-primary">
+            Docs
+          </Link>
 
           <Link to="/about-us" className="px-4 transition-all delay-75 hover:text-primary">
             About Us

@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { Button, Form, Input } from 'antd'
 import Page from '~/components/page'
 import Navbar from '~/components/navbar'
+import { useAuthContext } from '~/hooks/use-auth'
 
 export default function Home() {
+  const { user } = useAuthContext()
+
   return (
     <div className="bg-white">
       {/* Navbar Start */}
@@ -21,15 +24,17 @@ export default function Home() {
             for a dedicated backend.
           </div>
           <div>
-            <Link
-              to="/signup"
-              className="flex items-center space-x-4 bg-primary w-max text-white py-2 px-4 rounded-full"
-            >
-              <div>Create Account</div>
-              <div>
-                <PlusCircleOutlined />
-              </div>
-            </Link>
+            {user ? null : (
+              <Link
+                to="/signup"
+                className="flex items-center space-x-4 bg-primary w-max text-white py-2 px-4 rounded-full"
+              >
+                <div>Create Account</div>
+                <div>
+                  <PlusCircleOutlined />
+                </div>
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex justify-center items-center">
