@@ -25,7 +25,7 @@ export default function Dashboard() {
           isLoading={isLoading}
         />
         <StatCard
-          title="API Usage"
+          title="API Usage Remaining"
           value={`${stats?.apiUsage.remaining} / ${stats?.apiUsage.total}`}
           icon={<AiOutlineBarChart className="w-5 h-5 text-green-500" />}
           isLoading={isLoading}
