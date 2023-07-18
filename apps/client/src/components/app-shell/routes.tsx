@@ -1,4 +1,4 @@
-import { AiOutlineDashboard, AiOutlineFile, AiOutlineKey } from 'react-icons/ai'
+import { AiOutlineDashboard, AiOutlineDatabase, AiOutlineFile, AiOutlineKey } from 'react-icons/ai'
 import { HiOutlineTemplate } from 'react-icons/hi'
 
 export type AppshellRoute = {
@@ -30,6 +30,13 @@ export const ROUTES: AppshellRoute[] = [
     icon: <HiOutlineTemplate />,
     path: '/templates',
     patterns: ['/templates'],
+  },
+  {
+    id: 'responses',
+    name: 'Responses',
+    icon: <AiOutlineDatabase />,
+    path: '/responses',
+    patterns: ['/responses'],
   },
   {
     id: 'docs',

@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable, InternalServerErrorException } from '@nestjs/common'
 import { Transporter } from 'nodemailer'
 import SMTPTransport from 'nodemailer/lib/smtp-transport'
-import { ApiKey, Template } from '@prisma/client'
+import { ApiKey, Email, Template } from '@prisma/client'
 import Handlebars from 'handlebars'
 import { SendMailDto } from './mailer.dto'
 import { SanitizedUser } from '~/user/user.types'
@@ -9,6 +9,7 @@ import { TemplateService } from '~/template/template.service'
 import { generateRegisteredUserMailContent, mailBridgeSignature } from './mailer.utils'
 import { ApiKeyService } from '~/api-key/api-key.service'
 import { PrismaService } from '~/prisma/prisma.service'
+import { USER_SELECT_FIELDS } from '~/user/user.fields'
 
 @Injectable()
 export class MailerService {
@@ -87,5 +88,12 @@ export class MailerService {
 
   getTotalEmailSent(user: SanitizedUser): Promise<number> {
     return this.prismaService.email.count({ where: { createdById: user.id } })
+  }
+
+  getMails(user: SanitizedUser): Promise<Email[]> {
+    return this.prismaService.email.findMany({
+      where: { createdById: user.id },
+      include: { createdBy: { select: USER_SELECT_FIELDS } },
+    })
   }
 }

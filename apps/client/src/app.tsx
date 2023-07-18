@@ -14,6 +14,7 @@ const UpdateTemplate = lazy(() => import('~/pages/update-template'))
 const AboutUs = lazy(() => import('~/pages/about-us'))
 const Home = lazy(() => import('~/pages/home'))
 const Docs = lazy(() => import('~/pages/docs'))
+const Emails = lazy(() => import('~/pages/emails'))
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route element={<Templates />} path="/templates" />
           <Route element={<CreateTemplate />} path="/create-template" />
           <Route element={<UpdateTemplate />} path="/template/:id" />
+          <Route element={<Emails />} path="/responses" />
         </Route>
 
         <Route element={<Home />} path="/" />
