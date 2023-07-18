@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable, InternalServerErrorException } from '@nestjs/common'
 import { Transporter } from 'nodemailer'
 import SMTPTransport from 'nodemailer/lib/smtp-transport'
-import { ApiKey } from '@prisma/client'
+import { ApiKey, Template } from '@prisma/client'
 import Handlebars from 'handlebars'
 import { SendMailDto } from './mailer.dto'
 import { SanitizedUser } from '~/user/user.types'
@@ -19,14 +19,20 @@ export class MailerService {
     private readonly prismaService: PrismaService,
   ) {}
 
-  async sendMail(dto: SendMailDto, user: SanitizedUser, apiKey: ApiKey) {
+  async sendMail(dto: SendMailDto, user: SanitizedUser, apiKey: ApiKey, templateId?: string) {
     const to = dto.data.email
     if (!to) {
       throw new BadRequestException('Email not provided in data.')
     }
 
-    const defaultUserTemplate = await this.templateService.findDefaultForUser(user.id)
-    const compiled = Handlebars.compile(defaultUserTemplate.content)
+    let template: Template
+    if (templateId) {
+      template = await this.templateService.findOneByTemplateId(templateId)
+    } else {
+      template = await this.templateService.findDefaultForUser(user.id)
+    }
+
+    const compiled = Handlebars.compile(template.content)
     const html = compiled(dto.data)
     const htmlWithSignature = this._addMailBridgeSignature(html)
 
@@ -35,7 +41,7 @@ export class MailerService {
       {
         from: user.email,
         to,
-        subject: defaultUserTemplate.subject,
+        subject: template.subject,
         html: htmlWithSignature,
       },
       async (error) => {
@@ -69,11 +75,10 @@ export class MailerService {
         if (error) {
           throw new InternalServerErrorException(error)
         }
-        return { status: 'SUCCESS' }
       },
     )
 
-    return { status: 'FAILED' }
+    return { status: 'SUCCESS' }
   }
 
   private _addMailBridgeSignature(html: string): string {

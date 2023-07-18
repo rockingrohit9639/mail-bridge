@@ -90,4 +90,12 @@ export class TemplateService {
   getTotalTemplatesCreated(user: SanitizedUser): Promise<number> {
     return this.prismaService.template.count({ where: { createdById: user.id } })
   }
+
+  async findOneByTemplateId(templateId: string): Promise<Template> {
+    const template = await this.prismaService.template.findFirst({ where: { templateId } })
+    if (!template) {
+      throw new NotFoundException('Template not found!')
+    }
+    return template
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common'
 import { ApiKey } from '@prisma/client'
 import { MailerService } from './mailer.service'
 import { SendMailDto } from './mailer.dto'
@@ -15,5 +15,15 @@ export class MailerController {
   @UseGuards(ApiKeyGuard)
   sendMail(@Body() dto: SendMailDto, @GetUser() user: SanitizedUser, @GetApiKey() apiKey: ApiKey) {
     return this.mailerService.sendMail(dto, user, apiKey)
+  }
+
+  @Post('send/:templateId')
+  sendByTemplateId(
+    @Body() dto: SendMailDto,
+    @GetUser() user: SanitizedUser,
+    @GetApiKey() apiKey: ApiKey,
+    @Param('templateId') templateId: string,
+  ) {
+    return this.mailerService.sendMail(dto, user, apiKey, templateId)
   }
 }
