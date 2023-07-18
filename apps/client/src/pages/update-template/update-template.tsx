@@ -1,5 +1,5 @@
 import { ReloadOutlined } from '@ant-design/icons'
-import { Button, Form, Input, Result, Spin, message } from 'antd'
+import { Button, Checkbox, Form, Input, Result, Spin, message } from 'antd'
 import { useEffect } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
@@ -29,6 +29,8 @@ export default function UpdateTemplate() {
       form.setFieldsValue({
         name: template?.data?.name,
         subject: template?.data?.subject,
+        content: template?.data?.content,
+        isDefault: template?.data?.isDefault,
       })
     },
     [form, template?.data],
@@ -97,6 +99,10 @@ export default function UpdateTemplate() {
             }
           >
             <RichTextEditor initialValue={template.data?.content} />
+          </Form.Item>
+
+          <Form.Item name="isDefault" label="Make default?" valuePropName="checked">
+            <Checkbox>Make this a default template?</Checkbox>
           </Form.Item>
 
           <Button

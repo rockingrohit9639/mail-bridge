@@ -14,4 +14,4 @@ export type Template = {
 }
 
 export type CreateTemplateDto = Pick<Template, 'name' | 'subject' | 'content'>
-export type UpdateTemplateDto = Partial<CreateTemplateDto>
+export type UpdateTemplateDto = Partial<CreateTemplateDto> & { isDefault: boolean }

@@ -41,12 +41,21 @@ export class TemplateService {
   async updateTemplate(id: string, dto: UpdateTemplateDto, user: SanitizedUser): Promise<Template> {
     const template = await this.findOneById(id, user.id)
 
+    if (dto.isDefault === true) {
+      const defaultTemplate = await this.prismaService.template.findFirst({
+        where: { isDefault: true, createdById: user.id },
+      })
+
+      await this.prismaService.template.update({ where: { id: defaultTemplate.id }, data: { isDefault: false } })
+    }
+
     return this.prismaService.template.update({
       where: { id: template.id },
       data: {
         name: dto.name,
         content: dto.content,
         subject: dto.subject,
+        isDefault: dto.isDefault,
       },
     })
   }

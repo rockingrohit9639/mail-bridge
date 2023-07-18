@@ -1,4 +1,4 @@
-import { IsString, MaxLength, MinLength } from 'class-validator'
+import { IsBoolean, IsOptional, IsString, MaxLength, MinLength } from 'class-validator'
 
 export class CreateTemplateDto {
   @IsString()
@@ -16,4 +16,8 @@ export class CreateTemplateDto {
   content: string
 }
 
-export class UpdateTemplateDto extends CreateTemplateDto {}
+export class UpdateTemplateDto extends CreateTemplateDto {
+  @IsOptional()
+  @IsBoolean()
+  isDefault?: boolean
+}
