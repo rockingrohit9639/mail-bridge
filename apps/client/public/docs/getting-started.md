@@ -26,21 +26,20 @@ You can use either of these to make your form working with mail bridge. Below is
 ### Using Fetch API
 
 ```js
-fetch('MAIL_BRIDGE_URL', {
+fetch('https://mail-bridge.onrender.com/emails/send', {
   method: 'post',
   headers: new Headers({
-    'x-api-key': 'YOUR_API_KEY',
+    'content-type': 'application/json',
+    'x-api-key': YOUR_API_KEY,
   }),
-  body: {
-    data: YOUR_DATA_AS_OBJECT,
-  },
+  body: JSON.stringify(YOUR_DATA_AS_OBJECT),
 })
 ```
 
 ### Using Axios
 
 ```js
-const response = await axios.post('MAIL_BRIDGE_URL', YOUR_DATA_AS_OBJECT, {
+const response = await axios.post('https://mail-bridge.onrender.com/emails/send', YOUR_DATA_AS_OBJECT, {
   headers: {
     'x-api-key': 'YOUR_API_KEY',
   },
