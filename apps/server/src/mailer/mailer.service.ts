@@ -35,7 +35,7 @@ export class MailerService {
 
     const compiled = Handlebars.compile(template.content)
     const html = compiled(dto.data)
-    const htmlWithSignature = this._addMailBridgeSignature(html)
+    const htmlWithSignature = this.addMailBridgeSignature(html)
 
     /** Sending mail to the user 1 */
     this.transporter.sendMail(
@@ -64,7 +64,7 @@ export class MailerService {
 
     /** Sending confirmation mail to our registered user */
     const registeredUserContent = generateRegisteredUserMailContent(user, apiKey.name, dto.data)
-    const contentWithSignature = this._addMailBridgeSignature(registeredUserContent)
+    const contentWithSignature = this.addMailBridgeSignature(registeredUserContent)
     this.transporter.sendMail(
       {
         from: user.email,
@@ -82,7 +82,7 @@ export class MailerService {
     return { status: 'SUCCESS' }
   }
 
-  private _addMailBridgeSignature(html: string): string {
+  private addMailBridgeSignature(html: string): string {
     return html + mailBridgeSignature
   }
 
@@ -94,6 +94,16 @@ export class MailerService {
     return this.prismaService.email.findMany({
       where: { createdById: user.id },
       include: { createdBy: { select: USER_SELECT_FIELDS } },
+    })
+  }
+
+  async sendScheduledMail(to: string[], templateId: string, user: SanitizedUser) {
+    const template = await this.templateService.findOneById(templateId, user.id)
+    this.transporter.sendMail({
+      from: user.email,
+      to,
+      subject: template.subject,
+      html: template.content,
     })
   }
 }

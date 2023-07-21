@@ -110,7 +110,6 @@ export class AuthService {
       /** If everything goes well, we will add sub in our user which will make sure if account is linked with google or not */
       return this.userService.addGoogleSubInUser(user.id, payload.sub, payload.picture)
     } catch (error) {
-      console.log(error)
       throw new BadRequestException('Invalid Google Token')
     }
   }

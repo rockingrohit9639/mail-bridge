@@ -21,7 +21,8 @@ export default function Emails() {
       <Page.Header title="Responses" description="The responses which you have received from your forms." />
 
       <div className="space-y-2">
-        <div className="text-xl font-bold">Total Responses ({data?.length})</div>
+        {data?.length ? <div className="text-xl font-bold">Total Responses ({data?.length})</div> : null}
+
         <Table
           pagination={false}
           bordered
