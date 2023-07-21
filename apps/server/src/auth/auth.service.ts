@@ -98,6 +98,10 @@ export class AuthService {
         throw new BadRequestException('Invalid Google Token')
       }
 
+      if (payload.email !== user.email) {
+        throw new BadRequestException('Google email and your account email does not match!')
+      }
+
       const existingUser = await this.userService.findOneByGoogleId(payload.sub)
       if (existingUser) {
         throw new ConflictException('This google account is already linked with another account!')
