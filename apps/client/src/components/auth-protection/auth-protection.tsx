@@ -1,3 +1,4 @@
+import { Spin } from 'antd'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuthContext } from '~/hooks/use-auth'
 
@@ -7,7 +8,15 @@ type AuthProtectionProps = {
 
 export default function AuthProtection({ children }: AuthProtectionProps) {
   const location = useLocation()
-  const { user } = useAuthContext()
+  const { user, authVerificationInProgress } = useAuthContext()
+
+  if (authVerificationInProgress) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <Spin>Authenticating User...</Spin>
+      </div>
+    )
+  }
 
   if (user) {
     return children
