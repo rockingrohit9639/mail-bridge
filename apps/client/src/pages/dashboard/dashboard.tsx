@@ -1,4 +1,4 @@
-import { AiOutlineBarChart, AiOutlineKey, AiOutlineMail, AiOutlineTable } from 'react-icons/ai'
+import { AiOutlineBarChart, AiOutlineClockCircle, AiOutlineKey, AiOutlineMail, AiOutlineTable } from 'react-icons/ai'
 import { useQuery } from 'react-query'
 import Page from '~/components/page'
 import StatCard from '~/components/stat-card'
@@ -34,6 +34,12 @@ export default function Dashboard() {
           title="Total Templates Created"
           value={stats?.totalTemplatesCreated!}
           icon={<AiOutlineTable className="w-5 h-5 text-purple-500" />}
+          isLoading={isLoading}
+        />
+        <StatCard
+          title="Total Emails Scheduled"
+          value={stats?.totalEmailScheduled!}
+          icon={<AiOutlineClockCircle className="w-5 h-5 text-yellow-500" />}
           isLoading={isLoading}
         />
       </div>
