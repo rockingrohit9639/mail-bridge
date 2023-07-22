@@ -4,13 +4,14 @@ import {
   InternalServerErrorException,
   Logger,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common'
 import { ScheduledEmail } from '@prisma/client'
 import { Cron, CronExpression, SchedulerRegistry } from '@nestjs/schedule'
 import { CronJob } from 'cron'
 import * as dayjs from 'dayjs'
 import { PrismaService } from '~/prisma/prisma.service'
-import { CreateScheduleEmailDto } from './schedule-email.dto'
+import { CreateScheduleEmailDto, UpdateScheduleEmailDto } from './schedule-email.dto'
 import { SanitizedUser } from '~/user/user.types'
 import { MAX_SCHEDULE_MAIL_ALLOWED } from '~/config/constants'
 import { MailerService } from '~/mailer/mailer.service'
@@ -90,6 +91,21 @@ export class ScheduleEmailService {
     }
 
     return this.prismaService.scheduledEmail.delete({ where: { id } })
+  }
+
+  async updateOneById(id: string, dto: UpdateScheduleEmailDto, user: SanitizedUser): Promise<ScheduledEmail> {
+    const schedule = await this.findOneById(id)
+    if (schedule.createdById !== user.id) {
+      throw new UnauthorizedException('You are not allowed to delete this schedule.')
+    }
+
+    return this.prismaService.scheduledEmail.update({
+      where: { id },
+      data: {
+        title: dto.title,
+        description: dto.description,
+      },
+    })
   }
 
   getTotalScheduledEmails(user: SanitizedUser): Promise<number> {

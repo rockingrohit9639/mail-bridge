@@ -1,5 +1,6 @@
 import { ScheduledEmailType } from '@prisma/client'
 import { IsDateString, IsEnum, IsMongoId, IsOptional, IsString } from 'class-validator'
+import { PickType } from '@nestjs/mapped-types'
 
 export class CreateScheduleEmailDto {
   @IsString({ each: true })
@@ -21,3 +22,5 @@ export class CreateScheduleEmailDto {
   @IsString()
   description: string
 }
+
+export class UpdateScheduleEmailDto extends PickType(CreateScheduleEmailDto, ['title', 'description']) {}

@@ -23,3 +23,5 @@ export type ScheduledEmail = {
 export type CreateScheduleEmailDto = Pick<ScheduledEmail, 'to' | 'type' | 'scheduledTime' | 'title' | 'description'> & {
   template: string
 }
+
+export type UpdateScheduleEmailDto = Pick<ScheduledEmail, 'title' | 'description'>

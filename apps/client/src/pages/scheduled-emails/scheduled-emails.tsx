@@ -4,6 +4,7 @@ import moment from 'moment'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import Page from '~/components/page'
+import UpdateScheduleModal from '~/components/update-schedule-modal'
 import { getScheduledMails } from '~/queries/schedule-email'
 import { DATE_FORMAT } from '~/utils/constants'
 import { getErrorMessage } from '~/utils/error'
@@ -76,9 +77,13 @@ export default function ScheduledMails() {
               </div>
             }
             actions={[
-              <div key="edit">
-                <EditOutlined />
-              </div>,
+              <UpdateScheduleModal
+                key="edit"
+                id={mail.id}
+                trigger={<EditOutlined />}
+                title={mail.title}
+                description={mail.description}
+              />,
             ]}
           >
             <div className="space-y-2">
