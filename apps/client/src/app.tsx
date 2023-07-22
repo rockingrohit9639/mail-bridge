@@ -15,6 +15,8 @@ const AboutUs = lazy(() => import('~/pages/about-us'))
 const Home = lazy(() => import('~/pages/home'))
 const Docs = lazy(() => import('~/pages/docs'))
 const Emails = lazy(() => import('~/pages/emails'))
+const ScheduledEmails = lazy(() => import('~/pages/scheduled-emails'))
+const CreateEmailSchedule = lazy(() => import('~/pages/create-email-schedule'))
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
           <Route element={<CreateTemplate />} path="/create-template" />
           <Route element={<UpdateTemplate />} path="/template/:id" />
           <Route element={<Emails />} path="/responses" />
+          <Route element={<ScheduledEmails />} path="/scheduled-mails" />
+          <Route element={<CreateEmailSchedule />} path="/create-email-schedule" />
         </Route>
 
         <Route element={<Home />} path="/" />

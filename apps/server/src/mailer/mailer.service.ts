@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable, InternalServerErrorException } from '@nestjs/common'
+import { BadRequestException, Inject, Injectable, InternalServerErrorException, Logger } from '@nestjs/common'
 import { Transporter } from 'nodemailer'
 import SMTPTransport from 'nodemailer/lib/smtp-transport'
 import { ApiKey, Email, Template } from '@prisma/client'
@@ -98,12 +98,21 @@ export class MailerService {
   }
 
   async sendScheduledMail(to: string[], templateId: string, user: SanitizedUser) {
+    Logger.log('Sending Schedule mail', MailerService.name)
+
     const template = await this.templateService.findOneById(templateId, user.id)
-    this.transporter.sendMail({
-      from: user.email,
-      to,
-      subject: template.subject,
-      html: template.content,
-    })
+    this.transporter.sendMail(
+      {
+        from: user.email,
+        to: to.join(', '),
+        subject: template.subject,
+        html: template.content,
+      },
+      (error) => {
+        if (error) {
+          Logger.error('Something went wrong while sending scheduled mail', error)
+        }
+      },
+    )
   }
 }

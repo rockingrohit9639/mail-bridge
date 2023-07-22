@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common'
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common'
 import { ScheduledEmail } from '@prisma/client'
 import { Cron, CronExpression, SchedulerRegistry } from '@nestjs/schedule'
 import { CronJob } from 'cron'
@@ -22,44 +28,41 @@ export class ScheduleEmailService {
   }
 
   async scheduleEmail(dto: CreateScheduleEmailDto, user: SanitizedUser): Promise<ScheduledEmail> {
-    const createdJobs = await this.prismaService.scheduledEmail.count({ where: { createdById: user.id } })
-    if (createdJobs >= MAX_SCHEDULE_MAIL_ALLOWED) {
-      throw new BadRequestException('You have reached the maximum number of scheduled emails!')
+    try {
+      const createdJobs = await this.prismaService.scheduledEmail.count({ where: { createdById: user.id } })
+      if (createdJobs >= MAX_SCHEDULE_MAIL_ALLOWED) {
+        throw new BadRequestException('You have reached the maximum number of scheduled emails!')
+      }
+
+      const job = await this.prismaService.scheduledEmail.create({
+        data: {
+          to: dto.to,
+          type: dto.type,
+          title: dto.title,
+          description: dto.description,
+          scheduledTime: dto.scheduledTime,
+          template: { connect: { id: dto.template } },
+          createdBy: { connect: { id: user.id } },
+        },
+      })
+
+      const newJob = new CronJob(
+        dayjs(dto.scheduledTime).toDate(),
+        async () => {
+          await this.mailerService.sendScheduledMail(job.to, job.templateId, user)
+        },
+        () => {
+          Logger.log('Cron job completed!')
+        },
+      )
+
+      this.schedulerRegistry.addCronJob(job.id, newJob)
+      newJob.start()
+
+      return job
+    } catch (error) {
+      throw new InternalServerErrorException('Something went wrong!')
     }
-
-    const job = await this.prismaService.scheduledEmail.create({
-      data: {
-        to: dto.to,
-        type: dto.type,
-        scheduledTime: dto.scheduledTime,
-        template: { connect: { id: dto.template } },
-        createdBy: { connect: { id: user.id } },
-      },
-    })
-
-    const scheduleDateCronExpression = this.dateToCronExpression(dayjs(job.scheduledTime).toDate())
-    const newJob = new CronJob(scheduleDateCronExpression, async () => {
-      await this.mailerService.sendScheduledMail(job.to, job.templateId, user)
-    })
-
-    this.schedulerRegistry.addCronJob(job.id, newJob)
-    newJob.start()
-
-    return job
-  }
-
-  private dateToCronExpression(date: Date): string {
-    const minutes = date.getMinutes()
-    const hours = date.getHours()
-    const days = date.getDate()
-    const months = date.getMonth() + 1
-    const dayOfWeek = date.getDay()
-
-    return `${minutes} ${hours} ${days} ${months} ${dayOfWeek}`
-  }
-
-  getTotalScheduledEmails(user: SanitizedUser): Promise<number> {
-    return this.prismaService.scheduledEmail.count({ where: { createdById: user.id } })
   }
 
   async findOneById(id: string): Promise<ScheduledEmail> {
@@ -68,6 +71,10 @@ export class ScheduleEmailService {
       throw new NotFoundException('No schedule email found for specified id.')
     }
     return schedule
+  }
+
+  getScheduledEmails(user: SanitizedUser): Promise<ScheduledEmail[]> {
+    return this.prismaService.scheduledEmail.findMany({ where: { createdById: user.id } })
   }
 
   async deleteOneBydId(id: string, user: SanitizedUser): Promise<ScheduledEmail> {
@@ -83,6 +90,10 @@ export class ScheduleEmailService {
     }
 
     return this.prismaService.scheduledEmail.delete({ where: { id } })
+  }
+
+  getTotalScheduledEmails(user: SanitizedUser): Promise<number> {
+    return this.prismaService.scheduledEmail.count({ where: { createdById: user.id } })
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)

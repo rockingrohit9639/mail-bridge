@@ -1,4 +1,10 @@
-import { AiOutlineDashboard, AiOutlineDatabase, AiOutlineFile, AiOutlineKey } from 'react-icons/ai'
+import {
+  AiOutlineClockCircle,
+  AiOutlineDashboard,
+  AiOutlineDatabase,
+  AiOutlineFile,
+  AiOutlineKey,
+} from 'react-icons/ai'
 import { HiOutlineTemplate } from 'react-icons/hi'
 
 export type AppshellRoute = {
@@ -37,6 +43,13 @@ export const ROUTES: AppshellRoute[] = [
     icon: <AiOutlineDatabase />,
     path: '/responses',
     patterns: ['/responses'],
+  },
+  {
+    id: 'schedule-mail',
+    name: 'Scheduled Mails',
+    icon: <AiOutlineClockCircle />,
+    path: '/scheduled-mails',
+    patterns: ['/scheduled-mails'],
   },
   {
     id: 'docs',

@@ -17,6 +17,8 @@ export const ANTD_THEME: ThemeConfig = {
     colorError: colors.red['500'],
     colorWarning: colors.yellow['600'],
     colorSuccess: colors.green['600'],
+
+    borderRadius: 3,
   },
   components: {
     Form: {

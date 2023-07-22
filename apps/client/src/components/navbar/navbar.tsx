@@ -27,17 +27,9 @@ export default function Navbar({ className, style }: NavbarProps) {
         </div>
         <div className="flex items-center uppercase divide-x-2 gap-4">
           {user ? (
-            <>
-              <Link to="/dashboard" className="px-4 transition-all delay-75 hover:text-primary">
-                Dashboard
-              </Link>
-              <Link to="/api-keys" className="px-4 transition-all delay-75 hover:text-primary">
-                API Keys
-              </Link>
-              <Link to="/templates" className="px-4 transition-all delay-75 hover:text-primary">
-                Templates
-              </Link>
-            </>
+            <Link to="/dashboard" className="px-4 transition-all delay-75 hover:text-primary">
+              Dashboard
+            </Link>
           ) : null}
 
           <Link to="/docs" className="px-4 transition-all delay-75 hover:text-primary">

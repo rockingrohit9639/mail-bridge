@@ -1,5 +1,5 @@
 import { ScheduledEmailType } from '@prisma/client'
-import { IsDateString, IsEnum, IsMongoId, IsString } from 'class-validator'
+import { IsDateString, IsEnum, IsMongoId, IsOptional, IsString } from 'class-validator'
 
 export class CreateScheduleEmailDto {
   @IsString({ each: true })
@@ -13,4 +13,11 @@ export class CreateScheduleEmailDto {
 
   @IsMongoId()
   template: string
+
+  @IsString()
+  title: string
+
+  @IsOptional()
+  @IsString()
+  description: string
 }
