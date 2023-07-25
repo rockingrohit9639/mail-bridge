@@ -18,9 +18,7 @@ export default function Navbar({ className, style }: NavbarProps) {
     >
       <div className="max-w-screen-xl mx-auto flex items-center justify-between h-full px-4 lg:px-0">
         <div className="flex items-center space-x-2">
-          <div className="flex items-center justify-center w-8 select-none h-8 rounded text-primary border border-primary">
-            @
-          </div>
+          <img src="/logo.png" className="w-10" alt="logo" />
           <Link to="/" className="text-primary font-bold text-2xl">
             Mail Bridge
           </Link>
